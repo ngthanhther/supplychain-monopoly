@@ -37,7 +37,7 @@ interface GameStore {
   // Session management
   createSession: (name: string, totalRounds?: number) => void
   loadDemoSession: () => void
-  loadSession: (sessionId: string) => void
+  loadSession: (sessionOrId: string | GameSession) => void
   saveSession: () => void
   deleteSession: (sessionId: string) => void
   startSession: () => void
@@ -68,6 +68,7 @@ interface GameStore {
   updateTeamName: (teamId: TeamId, name: string) => void
   updateTransportRate: (rate: number) => void
   updateTaxConfig: (config: Partial<GameSession["taxConfig"]>) => void
+  updateSessionSettings: (settings: Partial<GameSession>) => void
 }
 
 // Generate unique ID for logs
@@ -93,11 +94,17 @@ export const useGameStore = create<GameStore>()(
         set({ currentSession: session })
       },
 
-      loadSession: (sessionId) => {
-        const { sessionHistory } = get()
-        const session = sessionHistory.find((s) => s.id === sessionId)
-        if (session) {
-          set({ currentSession: JSON.parse(JSON.stringify(session)) })
+      loadSession: (sessionOrId) => {
+        if (typeof sessionOrId === "string") {
+          // Load by ID from history
+          const { sessionHistory } = get()
+          const session = sessionHistory.find((s) => s.id === sessionOrId)
+          if (session) {
+            set({ currentSession: JSON.parse(JSON.stringify(session)) })
+          }
+        } else {
+          // Load full session object directly
+          set({ currentSession: JSON.parse(JSON.stringify(sessionOrId)) })
         }
       },
 
@@ -826,6 +833,19 @@ export const useGameStore = create<GameStore>()(
             currentSession: {
               ...state.currentSession,
               taxConfig: { ...state.currentSession.taxConfig, ...config },
+            },
+          }
+        })
+      },
+
+      updateSessionSettings: (settings) => {
+        set((state) => {
+          if (!state.currentSession) return state
+
+          return {
+            currentSession: {
+              ...state.currentSession,
+              ...settings,
             },
           }
         })
