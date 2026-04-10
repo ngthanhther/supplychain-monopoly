@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 30% 98%;
+    --foreground: 220 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 20%;
+    --primary: 142 50% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 70% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 45 20% 92%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 340 60% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 10% 85%;
+    --input: 220 10% 85%;
+    --ring: 142 50% 45%;
+    --radius: 0.75rem;
+
+    /* Team colors - green, blue, orange, purple */
+    --team1: 142 60% 45%;
+    --team2: 210 80% 55%;
+    --team3: 25 90% 55%;
+    --team4: 270 60% 60%;
+
+    /* Status colors */
+    --frozen: 0 70% 55%;
+    --upgraded: 45 90% 50%;
+    --opportunity: 142 50% 70%;
+    --risk: 25 80% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Board cell styling */
+.board-cell {
+  @apply relative flex flex-col items-center justify-center p-1 text-xs font-medium transition-all duration-200;
+}
+
+.board-cell:hover {
+  @apply shadow-lg z-10 scale-105;
+}
+
+/* Team token styling */
+.team-token {
+  @apply w-4 h-4 rounded-full border-2 border-white shadow-md;
+}
+
+/* Facility card styling */
+.facility-card {
+  @apply rounded-lg border bg-card p-3 shadow-sm transition-all duration-200 hover:shadow-md;
+}
+
+/* Status badge styling */
+.status-badge {
+  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+}
