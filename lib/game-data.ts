@@ -153,6 +153,9 @@ export const DEFAULT_ROUND_DEMANDS: RoundDemand[] = [
   { round: 4, demands: { A: 650, B: 650, C: 550, D: 500 } },
 ]
 
+// Default demand template for creating new rounds
+export const DEFAULT_DEMAND: RoundDemand = { round: 1, demands: { A: 500, B: 500, C: 500, D: 500 } }
+
 // ============================================
 // EVENT CARDS
 // ============================================
